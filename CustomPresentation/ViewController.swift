@@ -23,7 +23,14 @@ extension State {
         }
     }
 }
+
 class ViewController: UIViewController {
+    
+    lazy var popupView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .gray
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
