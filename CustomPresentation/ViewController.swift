@@ -8,6 +8,21 @@
 
 import UIKit
 
+private enum State {
+    case closed
+    case open
+}
+
+extension State {
+    var opposite: State {
+        switch self {
+        case .closed:
+            return .open
+        case .open:
+            return .closed
+        }
+    }
+}
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
