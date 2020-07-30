@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     private lazy var popupView: UIView = {
        let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .green
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addGestureRecognizer(self.tapRecognizer)
         return view
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapPopView))
     
-    private lazy var popViewBottomConstraint: NSLayoutConstraint = self.popupView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 440)
+    private lazy var popViewHeightConstraint: NSLayoutConstraint = self.popupView.heightAnchor.constraint(equalToConstant: 60)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +48,10 @@ class ViewController: UIViewController {
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
-            popViewBottomConstraint,
+            popupView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            popupView.heightAnchor.constraint(equalToConstant: 500)
+            popViewHeightConstraint
         ])
     }
 
@@ -61,9 +61,9 @@ class ViewController: UIViewController {
         let transitionAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
             switch state {
             case .open:
-                self.popViewBottomConstraint.constant = 0
+                self.popViewHeightConstraint.constant = 500
             case .closed:
-                self.popViewBottomConstraint.constant = 440
+                self.popViewHeightConstraint.constant = 60
             }
             self.view.layoutIfNeeded()
         })
@@ -80,9 +80,9 @@ class ViewController: UIViewController {
             }
             switch self.currentState {
             case .open:
-                self.popViewBottomConstraint.constant = 0
+                self.popViewHeightConstraint.constant = 500
             case .closed:
-                self.popViewBottomConstraint.constant = 440
+                self.popViewHeightConstraint.constant = 60
             }
         }
         transitionAnimator.startAnimation()
