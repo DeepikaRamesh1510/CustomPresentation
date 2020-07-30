@@ -67,23 +67,9 @@ class ViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         })
+        
         transitionAnimator.addCompletion { position in
-            switch position {
-            case .start:
-                self.currentState = state.opposite
-            case .end:
-                self.currentState = state
-            case .current:
-                ()
-            @unknown default:
-                assertionFailure("Unknown case")
-            }
-            switch self.currentState {
-            case .open:
-                self.popViewHeightConstraint.constant = 500
-            case .closed:
-                self.popViewHeightConstraint.constant = 60
-            }
+            self.currentState = state
         }
         transitionAnimator.startAnimation()
     }
